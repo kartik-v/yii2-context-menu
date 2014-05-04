@@ -1,12 +1,10 @@
 yii2-context-menu
 =================
 
-A context menu extension for Yii framework 2.0 based on the [bootstrap-contextmenu plugin](https://github.com/sydcanem/bootstrap-contextmenu) 
-styled for Bootstrap 3.
-
-## ContextMenu
-
-`\kartik\cmenu\ContextMenu`
+A context menu extension for Yii framework 2.0 that allows you to add and render a context menu to any element on the page. A context menu 
+is a pop up menu that one initiates on any element by right clicking the mouse in that target element. This widget is a wrapper for the 
+[bootstrap-contextmenu plugin](https://github.com/sydcanem/bootstrap-contextmenu) which is styled for Bootstrap 3. The widget uses 
+the `\yii\bootstrap\Dropdown` widget to generate a dropdown menu.
 
 ### Demo
 You can see detailed [documentation](http://demos.krajee.com/context-menu) on usage of the extension.
