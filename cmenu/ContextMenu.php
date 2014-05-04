@@ -2,11 +2,11 @@
 
 /**
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @package yii2-widgets
+ * @package yii2-context-menu
  * @version 1.0.0
  */
 
-namespace kartik\builder;
+namespace kartik\cmenu;
 
 use Yii;
 use yii\base\Widget;
