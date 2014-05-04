@@ -68,7 +68,7 @@ class ContextMenu extends Widget
     /**
      * @var array HTML attributes for the context menu target container. The following special options
      * are recognized.
-     * - tag: string, the tag for rendering the target container. Defaults to `div`.
+     * - tag: string, the tag for rendering the target container. Defaults to `span`.
      */
     public $options = [];
 
@@ -166,7 +166,7 @@ class ContextMenu extends Widget
         if (!empty($this->pluginOptions['onItem']) && !$this->pluginOptions['onItem'] instanceof JsExpression) {
             $this->pluginOptions['onItem'] = new JsExpression($this->pluginOptions['onItem']);
         }
-        $this->_targetTag = ArrayHelper::remove($this->options, 'tag', 'div');
+        $this->_targetTag = ArrayHelper::remove($this->options, 'tag', 'span');
         $this->_menuTag = ArrayHelper::remove($this->menuContainer, 'tag', 'div');
     }
 
