@@ -12,9 +12,11 @@ use Yii;
 use yii\base\Widget;
 use yii\bootstrap\Dropdown;
 use yii\base\InvalidConfigException;
-use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\helpers\Json;
 use yii\web\JsExpression;
+use yii\web\View;
 
 /**
  * A context menu extension for Bootstrap 3.0, which allows you to access
