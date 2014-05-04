@@ -35,7 +35,7 @@ to the ```require``` section of your `composer.json` file.
 
 ```php
 use kartik\cmenu\ContextMenu;
-echo ContextMenu::begin([
+ContextMenu::begin([
     'items' => [
         ['label' => 'Action', 'url' => '#'],
         ['label' => 'Another action', 'url' => '#'],
@@ -45,7 +45,7 @@ echo ContextMenu::begin([
     ],
 ]); 
 // fill in any content within your target container
-echo ContextMenu::end();
+ContextMenu::end();
 ```
 
 ## License
