@@ -9,7 +9,7 @@
 namespace kartik\cmenu;
 
 /**
- * ContextMenu bundle for \kartik\widgets\ContextMenu
+ * ContextMenu bundle for \kartik\cmenu\ContextMenu
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @since 1.0
