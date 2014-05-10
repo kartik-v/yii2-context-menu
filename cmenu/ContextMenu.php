@@ -10,7 +10,7 @@ namespace kartik\cmenu;
 
 use Yii;
 use yii\base\Widget;
-use kartik\dropdown\DropdownX;
+use yii\bootstrap\Dropdown;
 use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -61,7 +61,7 @@ class ContextMenu extends Widget
 
     /**
      * @var array HTML attributes for the dropdown menu UL tag
-     * (options as required by [[kartik\dropdown\DropdownX]]
+     * (options as required by [[yii\bootstrap\Dropdown]]
      */
     public $menuOptions;
 
@@ -120,7 +120,7 @@ class ContextMenu extends Widget
     {
         parent::init();
         if (empty($this->items) || !is_array($this->items)) {
-            throw new InvalidConfigException("The 'items' property must be set as required in '\\kartik\\dropdown\\DropdownX'.");
+            throw new InvalidConfigException("The 'items' property must be set as required in '\\yii\\bootstrap\\Dropdown'.");
         }
         $this->initOptions();
         $this->registerAssets();
@@ -136,7 +136,7 @@ class ContextMenu extends Widget
     {
         echo Html::endTag($this->_targetTag) . PHP_EOL;
         echo Html::beginTag($this->_menuTag, $this->menuContainer) . PHP_EOL;
-        echo DropdownX::widget([
+        echo Dropdown::widget([
                 'items' => $this->items,
                 'encodeLabels' => $this->encodeLabels,
                 'options' => $this->menuOptions
