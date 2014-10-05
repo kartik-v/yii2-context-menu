@@ -19,7 +19,7 @@ class ContextMenuAsset extends \kartik\widgets\AssetBundle
 
     public function init()
     {
-        $this->setSourcePath(__DIR__ . '/../assets');
+        $this->setSourcePath(__DIR__ . '/assets');
         $this->setupAssets('js', ['js/bootstrap-contextmenu']);
         parent::init();
     }
