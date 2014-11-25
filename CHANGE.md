@@ -2,8 +2,7 @@ version 1.2.0
 =============
 **Date:** 25-Nov-2014
 
-- Extend widget from krajee\base\Widget
-- Use update Krajee Base
+- Extend widget from krajee\base\Widget and use updated Krajee Base release v1.3.0
 
 version 1.1.0
 =============
