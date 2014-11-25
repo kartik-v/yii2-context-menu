@@ -3,13 +3,13 @@
 /**
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
  * @package yii2-context-menu
- * @version 1.0.0
+ * @version 1.2.0
  */
 
 namespace kartik\cmenu;
 
 use Yii;
-use yii\base\Widget;
+use kartik\base\Widget;
 use yii\bootstrap\Dropdown;
 use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
@@ -149,10 +149,7 @@ class ContextMenu extends Widget
      */
     protected function initOptions()
     {
-        if (empty($this->options['id'])) {
-            $id = $this->getId();
-        }
-        $this->options['id'] = $id;
+        $id = $this->options['id'];
         if (empty($this->menuContainer['id'])) {
             $this->menuContainer['id'] = "{$id}-menu";
         }
@@ -168,59 +165,6 @@ class ContextMenu extends Widget
         }
         $this->_targetTag = ArrayHelper::remove($this->options, 'tag', 'span');
         $this->_menuTag = ArrayHelper::remove($this->menuContainer, 'tag', 'div');
-    }
-
-    /**
-     * Generates a hashed variable to store the pluginOptions. The following special data attributes
-     * will also be setup for the input widget, that can be accessed through javascript:
-     * - 'data-plugin-options' will store the hashed variable storing the plugin options.
-     * - 'data-plugin-name' the name of the plugin
-     *
-     * @param string $name the name of the plugin
-     */
-    protected function hashPluginOptions($name)
-    {
-        $this->_encOptions = empty($this->pluginOptions) ? '' : Json::encode($this->pluginOptions);
-        $this->_hashVar = $name . '_' . hash('crc32', $this->_encOptions);
-        $this->options['data-plugin-name'] = $name;
-        $this->options['data-plugin-options'] = $this->_hashVar;
-    }
-
-    /**
-     * Registers plugin options by storing it in a hashed javascript variable
-     */
-    protected function registerPluginOptions($name)
-    {
-        $view = $this->getView();
-        $this->hashPluginOptions($name);
-        $encOptions = empty($this->_encOptions) ? '{}' : $this->_encOptions;
-        $view->registerJs("var {$this->_hashVar} = {$encOptions};\n", View::POS_HEAD);
-    }
-
-    /**
-     * Registers a specific plugin and the related events
-     *
-     * @param string $name the name of the plugin
-     * @param string $element the plugin target element
-     */
-    protected function registerPlugin($name, $element = null)
-    {
-        $id = ($element == null) ? "jQuery('#" . $this->options['id'] . "')" : $element;
-        $view = $this->getView();
-        if ($this->pluginOptions !== false) {
-            $this->registerPluginOptions($name);
-            $view->registerJs("{$id}.{$name}({$this->_hashVar});");
-        }
-
-        if (!empty($this->pluginEvents)) {
-            $js = [];
-            foreach ($this->pluginEvents as $event => $handler) {
-                $function = new JsExpression($handler);
-                $js[] = "{$id}.on('{$event}', {$function});";
-            }
-            $js = implode("\n", $js);
-            $view->registerJs($js);
-        }
     }
 
     /**
