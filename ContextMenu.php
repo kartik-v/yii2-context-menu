@@ -1,11 +1,11 @@
 <?php
 
 /**
+ * @package   yii2-context-menu
+ * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @package yii2-context-menu
- * @version 1.2.0
+ * @version   1.3.0
  */
-
 namespace kartik\cmenu;
 
 use Yii;
@@ -128,9 +128,7 @@ class ContextMenu extends Widget
     }
 
     /**
-     * Runs the widget
-     *
-     * @return string|void
+     * @inheritdoc
      */
     public function run()
     {
