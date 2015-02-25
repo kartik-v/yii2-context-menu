@@ -34,8 +34,8 @@
 
 	ContextMenu.prototype = {
 
-		constructor: ContextMenu
-		,show: function(e) {
+		constructor: ContextMenu,
+		show: function(e) {
 
 			var $menu
 				, evt
@@ -66,9 +66,9 @@
 				.on('click.context.data-api', $menu.selector, $.proxy(this.closemenu, this));
 
 			return false;
-		}
+		},
 
-		,closemenu: function(e) {
+		closemenu: function(e) {
 			var $menu
 				, evt
 				, items
@@ -91,17 +91,17 @@
 			// Don't propagate click event so other currently
 			// opened menus won't close.
 			return false;
-		}
+		},
 
-		,before: function(e) {
+		before: function(e) {
 			return true;
-		}
+		},
 
-		,onItem: function(e) {
+		onItem: function(e) {
 			return true;
-		}
+		},
 
-		,listen: function () {
+		listen: function () {
 			this.$element.on('contextmenu.context.data-api', this.scopes, $.proxy(this.show, this));
 			$('html').on('click.context.data-api', $.proxy(this.closemenu, this));
 		}
@@ -109,14 +109,14 @@
 		,destroy: function() {
 			this.$element.off('.context.data-api').removeData('context');
 			$('html').off('.context.data-api');
-		}
+		},
 
-		,isDisabled: function() {
+		isDisabled: function() {
 			return this.$element.hasClass('.disabled') || 
 					this.$element.attr('disabled');
-		}
+		},
 
-		,getMenu: function () {
+		getMenu: function () {
 			var selector = this.$element.data('target')
 				, $menu;
 
@@ -128,9 +128,9 @@
 			$menu = $(selector);
 
 			return $menu && $menu.length ? $menu : this.$element.find(selector);
-		}
+		},
 
-		,getPosition: function(e, $menu) {
+		getPosition: function(e, $menu) {
 			var mouseX = e.clientX
 				, mouseY = e.clientY
 				, boundsX = $(window).width()
