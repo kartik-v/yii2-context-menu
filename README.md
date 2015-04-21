@@ -1,11 +1,11 @@
 yii2-context-menu
 =================
 
-[![Latest Stable Version](https://poser.pugx.org/kartik-v/yii2-context-menu/v/stable.svg)](https://packagist.org/packages/kartik-v/yii2-context-menu)
-[![License](https://poser.pugx.org/kartik-v/yii2-context-menu/license.svg)](https://packagist.org/packages/kartik-v/yii2-context-menu)
-[![Total Downloads](https://poser.pugx.org/kartik-v/yii2-context-menu/downloads.svg)](https://packagist.org/packages/kartik-v/yii2-context-menu)
-[![Monthly Downloads](https://poser.pugx.org/kartik-v/yii2-context-menu/d/monthly.png)](https://packagist.org/packages/kartik-v/yii2-context-menu)
-[![Daily Downloads](https://poser.pugx.org/kartik-v/yii2-context-menu/d/daily.png)](https://packagist.org/packages/kartik-v/yii2-context-menu)
+[![Latest Stable Version](https://poser.pugx.org/kartik-v/yii2-context-menu/v/stable)](https://packagist.org/packages/kartik-v/yii2-context-menu)
+[![License](https://poser.pugx.org/kartik-v/yii2-context-menu/license)](https://packagist.org/packages/kartik-v/yii2-context-menu)
+[![Total Downloads](https://poser.pugx.org/kartik-v/yii2-context-menu/downloads)](https://packagist.org/packages/kartik-v/yii2-context-menu)
+[![Monthly Downloads](https://poser.pugx.org/kartik-v/yii2-context-menu/d/monthly)](https://packagist.org/packages/kartik-v/yii2-context-menu)
+[![Daily Downloads](https://poser.pugx.org/kartik-v/yii2-context-menu/d/daily)](https://packagist.org/packages/kartik-v/yii2-context-menu)
 
 A context menu extension for Yii framework 2.0 that allows you to add and render a context menu to any element on the page. A context menu 
 is a pop up menu that one initiates on any element by right clicking the mouse in that target element. This widget is a wrapper for the 
