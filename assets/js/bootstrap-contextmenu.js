@@ -98,6 +98,9 @@
 		},
 
 		onItem: function(e) {
+			if (event.target && event.target.tagName==="A"){ 
+				location.href=event.target.href;
+			}
 			return true;
 		},
 
