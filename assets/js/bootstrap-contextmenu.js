@@ -97,7 +97,7 @@
 			return true;
 		},
 
-		onItem: function(e) {
+		onItem: function(context,event) {
 			if (event.target && event.target.tagName==="A"){ 
 				location.href=event.target.href;
 			}
