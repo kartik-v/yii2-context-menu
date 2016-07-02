@@ -1,11 +1,10 @@
 /*!
  * Bootstrap Context Menu
- * Version: 0.2.0
  * Author: @sydcanem
  * https://github.com/sydcanem/bootstrap-contextmenu
  *
- * Inspired by Twitter Bootstrap's dropdown plugin.
- * Twitter Bootstrap (http://twitter.github.com/bootstrap).
+ * Inspired by Bootstrap's dropdown plugin.
+ * Bootstrap (http://getbootstrap.com).
  *
  * Licensed under MIT
  * ========================================================= */
@@ -34,20 +33,20 @@
 
 	ContextMenu.prototype = {
 
-		constructor: ContextMenu,
-		show: function(e) {
+		constructor: ContextMenu
+		,show: function(e) {
 
 			var $menu
 				, evt
 				, tp
 				, items
-				, relatedTarget = { relatedTarget: this };
+				, relatedTarget = { relatedTarget: this, target: e.currentTarget };
 
 			if (this.isDisabled()) return;
 
 			this.closemenu();
 
-			if (!this.before.call(this,e,$(e.currentTarget))) return;
+			if (this.before.call(this,e,$(e.currentTarget)) === false) return;
 
 			$menu = this.getMenu();
 			$menu.trigger(evt = $.Event('show.bs.context', relatedTarget));
@@ -66,9 +65,9 @@
 				.on('click.context.data-api', $menu.selector, $.proxy(this.closemenu, this));
 
 			return false;
-		},
+		}
 
-		closemenu: function(e) {
+		,closemenu: function(e) {
 			var $menu
 				, evt
 				, items
@@ -90,33 +89,40 @@
 				.off('click.context.data-api', $menu.selector);
 			// Don't propagate click event so other currently
 			// opened menus won't close.
-			return false;
-		},
+			if (e) {
+				e.stopPropagation();
+			}
+		}
 
-		before: function(e) {
+		,keydown: function(e) {
+			if (e.which == 27) this.closemenu(e);
+		}
+
+		,before: function(e) {
 			return true;
-		},
+		}
 
-		onItem: function(e) {
+		,onItem: function(e) {
 			return true;
-		},
+		}
 
-		listen: function () {
+		,listen: function () {
 			this.$element.on('contextmenu.context.data-api', this.scopes, $.proxy(this.show, this));
 			$('html').on('click.context.data-api', $.proxy(this.closemenu, this));
+			$('html').on('keydown.context.data-api', $.proxy(this.keydown, this));
 		}
 
 		,destroy: function() {
 			this.$element.off('.context.data-api').removeData('context');
 			$('html').off('.context.data-api');
-		},
+		}
 
-		isDisabled: function() {
-			return this.$element.hasClass('.disabled') || 
+		,isDisabled: function() {
+			return this.$element.hasClass('disabled') || 
 					this.$element.attr('disabled');
-		},
+		}
 
-		getMenu: function () {
+		,getMenu: function () {
 			var selector = this.$element.data('target')
 				, $menu;
 
@@ -128,9 +134,9 @@
 			$menu = $(selector);
 
 			return $menu && $menu.length ? $menu : this.$element.find(selector);
-		},
+		}
 
-		getPosition: function(e, $menu) {
+		,getPosition: function(e, $menu) {
 			var mouseX = e.clientX
 				, mouseY = e.clientY
 				, boundsX = $(window).width()
@@ -184,9 +190,18 @@
 	 * =================================== */
 
 	$(document)
+	   .on('contextmenu.context.data-api', function() {
+			$(toggle).each(function () {
+				var data = $(this).data('context');
+				if (!data) return;
+				data.closemenu();
+			});
+		})
 		.on('contextmenu.context.data-api', toggle, function(e) {
 			$(this).contextmenu('show', e);
-			e.preventDefault();
-		});
 
+			e.preventDefault();
+			e.stopPropagation();
+		});
+		
 }(jQuery));

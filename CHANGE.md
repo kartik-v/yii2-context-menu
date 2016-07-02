@@ -1,8 +1,9 @@
-version 1.3.0
+version 1.2.1
 =============
-**Date**: 10-Jan-2015
+**Date**: 02-Jul-2016
 
 - Code formatting updates as per Yii2 coding style.
+- (enh #1, #2): Update to latest release of bootstrap-context-menu plugin.
 
 version 1.2.0
 =============
