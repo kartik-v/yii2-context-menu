@@ -3,7 +3,7 @@
 /**
  * @package   yii2-context-menu
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2013 - 2016
  * @version   1.2.1
  */
 namespace kartik\cmenu;

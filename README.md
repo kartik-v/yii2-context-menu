@@ -1,7 +1,8 @@
 yii2-context-menu
 =================
 
-[![Latest Stable Version](https://poser.pugx.org/kartik-v/yii2-context-menu/v/stable)](https://packagist.org/packages/kartik-v/yii2-context-menu)
+[![Stable Version](https://poser.pugx.org/kartik-v/yii2-context-menu/v/stable)](https://packagist.org/packages/kartik-v/yii2-context-menu)
+[![Unstable Version](https://poser.pugx.org/kartik-v/yii2-context-menu/v/unstable)](https://packagist.org/packages/kartik-v/yii2-context-menu)
 [![License](https://poser.pugx.org/kartik-v/yii2-context-menu/license)](https://packagist.org/packages/kartik-v/yii2-context-menu)
 [![Total Downloads](https://poser.pugx.org/kartik-v/yii2-context-menu/downloads)](https://packagist.org/packages/kartik-v/yii2-context-menu)
 [![Monthly Downloads](https://poser.pugx.org/kartik-v/yii2-context-menu/d/monthly)](https://packagist.org/packages/kartik-v/yii2-context-menu)
