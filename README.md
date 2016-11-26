@@ -17,7 +17,7 @@ the `\yii\bootstrap\Dropdown` widget to generate a dropdown menu.
 You can see detailed [documentation](http://demos.krajee.com/context-menu) on usage of the extension.
 
 ## Latest Release
-The latest version of the module is v1.2.1 released. Refer the [CHANGE LOG](https://github.com/kartik-v/yii2-context-menu/blob/master/CHANGE.md) for details.
+The latest version of the module is v1.2.2 released. Refer the [CHANGE LOG](https://github.com/kartik-v/yii2-context-menu/blob/master/CHANGE.md) for details.
 
 ## Installation
 

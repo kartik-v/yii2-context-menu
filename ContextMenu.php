@@ -4,7 +4,7 @@
  * @package   yii2-context-menu
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2013 - 2016
- * @version   1.2.1
+ * @version   1.2.2
  */
 namespace kartik\cmenu;
 
@@ -14,14 +14,28 @@ use yii\bootstrap\Dropdown;
 use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\helpers\Json;
 use yii\web\JsExpression;
-use yii\web\View;
 
 /**
- * A context menu extension for Bootstrap 3.0, which allows you to access
- * a context menu for a specific area on mouse right click.
- * Based on bootstrap-contextmenu jquery plugin by sydcanem.
+ * ContextMenu widget allows to access a bootstrap styled context menu on a specific element on the page via the mouse
+ * right click. This is based on bootstrap-contextmenu jquery plugin by sydcanem.
+ *
+ * Usage example:
+ *
+ * ~~~
+ * use kartik\cmenu\ContextMenu;
+ * ContextMenu::begin([
+ *     'items' => [
+ *         ['label' => 'Action', 'url' => '#'],
+ *         ['label' => 'Another action', 'url' => '#'],
+ *         ['label' => 'Something else here', 'url' => '#'],
+ *         '<li class="divider"></li>',
+ *         ['label' => 'Separated link', 'url' => '#'],
+ *     ],
+ * ]);
+ * // fill in any content within your target container
+ * ContextMenu::end();
+ * ~~~
  *
  * @see https://github.com/sydcanem/bootstrap-contextmenu
  * @author Kartik Visweswaran <kartikv2@gmail.com>
@@ -29,21 +43,24 @@ use yii\web\View;
  */
 class ContextMenu extends Widget
 {
+    /**
+     * Name of the jQuery plugin used in rendering the [[ContextMenu]] widget.
+     */
     const PLUGIN_NAME = 'contextmenu';
 
     /**
      * @var array list of menu items in the dropdown. Each array element can be either an HTML string,
      * or an array representing a single menu with the following structure:
      *
-     * - label: string, required, the label of the item link
-     * - url: string, optional, the url of the item link. Defaults to "#".
-     * - visible: boolean, optional, whether this menu item is visible. Defaults to true.
-     * - linkOptions: array, optional, the HTML attributes of the item link.
-     * - options: array, optional, the HTML attributes of the item.
-     * - items: array, optional, the submenu items. The structure is the same as this property.
-     *   Note that Bootstrap doesn't support dropdown submenu. You have to add your own CSS styles to support it.
+     * - `label`: _string_, required_, the label of the item link
+     * - `url`: _string_, optional_, the url of the item link. Defaults to "#".
+     * - `visible`: _boolean_, optional_, whether this menu item is visible. Defaults to true.
+     * - `linkOptions`: _array_, optional_, the HTML attributes of the item link.
+     * - `options`: _array_, optional_, the HTML attributes of the item.
+     * - `items`: _array_, optional_, the submenu items. The structure is the same as this property. Note that Bootstrap
+     *    does not support dropdown submenu. You have to add your own CSS styles to support it.
      *
-     * To insert divider use `<li role="presentation" class="divider"></li>`.
+     * To insert a divider between dropdown list items use `<li role="presentation" class="divider"></li>`.
      */
     public $items = [];
 
@@ -53,41 +70,39 @@ class ContextMenu extends Widget
     public $encodeLabels = true;
 
     /**
-     * @var array HTML attributes for the dropdown menu container. The following special options
-     * are recognized.
-     * - tag: string, the tag for rendering the dropdown menu container. Defaults to `div`.
+     * @var array HTML attributes for the dropdown menu container. The following special options are recognized:
+     * - `tag`: _string_, the tag for rendering the dropdown menu container. Defaults to `div`.
      */
     public $menuContainer = [];
 
     /**
-     * @var array HTML attributes for the dropdown menu UL tag
-     * (options as required by [[yii\bootstrap\Dropdown]]
+     * @var array HTML attributes for the dropdown menu UL tag (options as required by [[Dropdown]]
      */
     public $menuOptions;
 
     /**
      * @var array HTML attributes for the context menu target container. The following special options
      * are recognized.
-     * - tag: string, the tag for rendering the target container. Defaults to `span`.
+     * - `tag`: _string_, the tag for rendering the target container. Defaults to `span`.
      */
     public $options = [];
 
     /**
-     * @var array bootstrap-contextmenu plugin options
+     * @var array the plugin options for bootstrap-contextmenu.
      * @see https://github.com/sydcanem/bootstrap-contextmenu
      */
     public $pluginOptions = [];
 
     /**
-     * @var array widget JQuery events. You must define events in
-     * event-name => event-function format
-     * for example:
-     * ~~~
+     * @var array the jQuery plugin events for bootstrap-contextmenu. You must define events as
+     * `event-name => event-function`. For example:
+     *
+     * ```php
      * pluginEvents = [
-     *        "change" => "function() { log("change"); }",
-     *        "open" => "function() { log("open"); }",
+     *     "change" => "function() { log("change"); }",
+     *     "open" => "function() { log("open"); }",
      * ];
-     * ~~~
+     * ```
      */
     public $pluginEvents = [];
 
@@ -112,9 +127,8 @@ class ContextMenu extends Widget
     private $_targetTag;
 
     /**
-     * Initializes the widget
-     *
-     * @throws \yii\base\InvalidConfigException
+     * @inheritdoc
+     * @throws InvalidConfigException
      */
     public function init()
     {
@@ -166,7 +180,7 @@ class ContextMenu extends Widget
     }
 
     /**
-     * Registers widget assets
+     * Registers client assets for [[ContextMenu]] widget.
      */
     protected function registerAssets()
     {
