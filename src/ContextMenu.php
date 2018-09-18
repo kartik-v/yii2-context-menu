@@ -3,14 +3,12 @@
 /**
  * @package   yii2-context-menu
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2013 - 2016
- * @version   1.2.2
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2013 - 2018
+ * @version   1.2.3
  */
 namespace kartik\cmenu;
 
-use Yii;
 use kartik\base\Widget;
-use yii\bootstrap\Dropdown;
 use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -44,9 +42,9 @@ use yii\web\JsExpression;
 class ContextMenu extends Widget
 {
     /**
-     * Name of the jQuery plugin used in rendering the [[ContextMenu]] widget.
+     * @inheritdoc
      */
-    const PLUGIN_NAME = 'contextmenu';
+    public $pluginName = 'contextmenu';
 
     /**
      * @var array list of menu items in the dropdown. Each array element can be either an HTML string,
@@ -81,42 +79,6 @@ class ContextMenu extends Widget
     public $menuOptions;
 
     /**
-     * @var array HTML attributes for the context menu target container. The following special options
-     * are recognized.
-     * - `tag`: _string_, the tag for rendering the target container. Defaults to `span`.
-     */
-    public $options = [];
-
-    /**
-     * @var array the plugin options for bootstrap-contextmenu.
-     * @see https://github.com/sydcanem/bootstrap-contextmenu
-     */
-    public $pluginOptions = [];
-
-    /**
-     * @var array the jQuery plugin events for bootstrap-contextmenu. You must define events as
-     * `event-name => event-function`. For example:
-     *
-     * ```php
-     * pluginEvents = [
-     *     "change" => "function() { log("change"); }",
-     *     "open" => "function() { log("open"); }",
-     * ];
-     * ```
-     */
-    public $pluginEvents = [];
-
-    /**
-     * @var string the hashed variable to store the pluginOptions
-     */
-    protected $_hashVar;
-
-    /**
-     * @var string the Json encoded options
-     */
-    protected $_encOptions = '';
-
-    /**
      * @var string the dropdown menu container tag
      */
     private $_menuTag;
@@ -127,14 +89,23 @@ class ContextMenu extends Widget
     private $_targetTag;
 
     /**
+     * @var string the dropdown 
+     */
+    protected $_dropdownClass; 
+
+    /**
      * @inheritdoc
      * @throws InvalidConfigException
      */
     public function init()
     {
         parent::init();
+        $class = $this->_dropdownClass = $this->isBs4() ? '\kartik\bs4dropdown\Dropdown' : '\yii\bootstrap\Dropdown';
+        if (!class_exists($class)) {
+            throw new InvalidConfigException("The required dropdown class '{$class}' is not installed or invalid.");
+        }
         if (empty($this->items) || !is_array($this->items)) {
-            throw new InvalidConfigException("The 'items' property must be set as required in '\\yii\\bootstrap\\Dropdown'.");
+            throw new InvalidConfigException("The 'items' property must be set as required in '{$class}'.");
         }
         $this->initOptions();
         $this->registerAssets();
@@ -148,11 +119,16 @@ class ContextMenu extends Widget
     {
         echo Html::endTag($this->_targetTag) . PHP_EOL;
         echo Html::beginTag($this->_menuTag, $this->menuContainer) . PHP_EOL;
-        echo Dropdown::widget([
-                'items' => $this->items,
-                'encodeLabels' => $this->encodeLabels,
-                'options' => $this->menuOptions
-            ]) . PHP_EOL;
+        /**
+         * @var Widget $class
+         */
+        $class = $this->_dropdownClass;
+        $opts = [
+            'items' => $this->items,
+            'encodeLabels' => $this->encodeLabels,
+            'options' => $this->menuOptions
+        ];
+        echo $class::widget($opts) . PHP_EOL;
         echo Html::endTag($this->_menuTag);
     }
 
@@ -168,6 +144,7 @@ class ContextMenu extends Widget
         if (empty($this->menuOptions['id'])) {
             $this->menuOptions['id'] = "{$id}-menu-list";
         }
+        $this->pluginOptions['isBs4'] = $this->isBs4();
         $this->pluginOptions['target'] = '#' . $this->menuContainer['id'];
         if (!empty($this->pluginOptions['before']) && !$this->pluginOptions['before'] instanceof JsExpression) {
             $this->pluginOptions['before'] = new JsExpression($this->pluginOptions['before']);
@@ -186,7 +163,7 @@ class ContextMenu extends Widget
     {
         $view = $this->getView();
         ContextMenuAsset::register($view);
-        $this->registerPlugin(self::PLUGIN_NAME);
+        $this->registerPlugin($this->pluginName);
     }
 
 }
