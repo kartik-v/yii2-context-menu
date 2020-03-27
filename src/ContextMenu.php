@@ -3,7 +3,7 @@
 /**
  * @package   yii2-context-menu
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2013 - 2018
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2013 - 2020
  * @version   1.2.3
  */
 namespace kartik\cmenu;
@@ -27,7 +27,7 @@ use yii\web\JsExpression;
  *         ['label' => 'Action', 'url' => '#'],
  *         ['label' => 'Another action', 'url' => '#'],
  *         ['label' => 'Something else here', 'url' => '#'],
- *         '<li class="divider"></li>',
+ *         '<div class="dropdown-divider"></div>',
  *         ['label' => 'Separated link', 'url' => '#'],
  *     ],
  * ]);
@@ -58,7 +58,9 @@ class ContextMenu extends Widget
      * - `items`: _array_, optional_, the submenu items. The structure is the same as this property. Note that Bootstrap
      *    does not support dropdown submenu. You have to add your own CSS styles to support it.
      *
-     * To insert a divider between dropdown list items use `<li role="presentation" class="divider"></li>`.
+     * To insert a divider between dropdown list items use:
+     * - `<div role="presentation" class="dropdown-divider"></div>` for Bootstrap 4.x
+     * - `<li role="presentation" class="divider"></li>` for Bootstrap 3.x
      */
     public $items = [];
 
