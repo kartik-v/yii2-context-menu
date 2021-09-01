@@ -3,9 +3,10 @@
 /**
  * @package   yii2-context-menu
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2013 - 2020
- * @version   1.2.3
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2013 - 2021
+ * @version   1.2.4
  */
+
 namespace kartik\cmenu;
 
 use kartik\base\Widget;
@@ -91,9 +92,9 @@ class ContextMenu extends Widget
     private $_targetTag;
 
     /**
-     * @var string the dropdown 
+     * @var string the dropdown
      */
-    protected $_dropdownClass; 
+    protected $_dropdownClass;
 
     /**
      * @inheritdoc
@@ -102,16 +103,13 @@ class ContextMenu extends Widget
     public function init()
     {
         parent::init();
-        $class = $this->_dropdownClass = $this->isBs4() ? '\kartik\bs4dropdown\Dropdown' : '\yii\bootstrap\Dropdown';
-        if (!class_exists($class)) {
-            throw new InvalidConfigException("The required dropdown class '{$class}' is not installed or invalid.");
-        }
+        $class = $this->_dropdownClass = $this->getDropdownClass();
         if (empty($this->items) || !is_array($this->items)) {
             throw new InvalidConfigException("The 'items' property must be set as required in '{$class}'.");
         }
         $this->initOptions();
         $this->registerAssets();
-        echo Html::beginTag($this->_targetTag, $this->options) . PHP_EOL;
+        echo Html::beginTag($this->_targetTag, $this->options).PHP_EOL;
     }
 
     /**
@@ -119,8 +117,8 @@ class ContextMenu extends Widget
      */
     public function run()
     {
-        echo Html::endTag($this->_targetTag) . PHP_EOL;
-        echo Html::beginTag($this->_menuTag, $this->menuContainer) . PHP_EOL;
+        echo Html::endTag($this->_targetTag).PHP_EOL;
+        echo Html::beginTag($this->_menuTag, $this->menuContainer).PHP_EOL;
         /**
          * @var Widget $class
          */
@@ -128,9 +126,9 @@ class ContextMenu extends Widget
         $opts = [
             'items' => $this->items,
             'encodeLabels' => $this->encodeLabels,
-            'options' => $this->menuOptions
+            'options' => $this->menuOptions,
         ];
-        echo $class::widget($opts) . PHP_EOL;
+        echo $class::widget($opts).PHP_EOL;
         echo Html::endTag($this->_menuTag);
     }
 
@@ -146,8 +144,8 @@ class ContextMenu extends Widget
         if (empty($this->menuOptions['id'])) {
             $this->menuOptions['id'] = "{$id}-menu-list";
         }
-        $this->pluginOptions['isBs4'] = $this->isBs4();
-        $this->pluginOptions['target'] = '#' . $this->menuContainer['id'];
+        $this->pluginOptions['notBs3'] = !$this->isBs(3);
+        $this->pluginOptions['target'] = '#'.$this->menuContainer['id'];
         if (!empty($this->pluginOptions['before']) && !$this->pluginOptions['before'] instanceof JsExpression) {
             $this->pluginOptions['before'] = new JsExpression($this->pluginOptions['before']);
         }

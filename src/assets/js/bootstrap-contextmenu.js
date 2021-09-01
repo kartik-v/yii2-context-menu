@@ -30,8 +30,8 @@
             this.$element.data('target', options.target);
         }
         this.$dropdownMenu = $(options.target + ' > .dropdown-menu');
-        this.isBs4 = options.isBs4;
-        this.showCss = this.isBs4 ? 'show' : 'open';
+        this.notBs3 = options.notBs3;
+        this.showCss = this.notBs3 ? 'show' : 'open';
         this.listen();
     };
 
@@ -57,7 +57,7 @@
                 .addClass(this.showCss)
                 .on('click.context.data-api', items, $.proxy(this.onItem, this, $(e.currentTarget)))
                 .trigger('shown.bs.context', relatedTarget);
-            if (this.isBs4) {
+            if (this.notBs3) {
                 this.$dropdownMenu.addClass(this.showCss);
             }
             // Delegating the `closemenu` only on the currently opened menu.
@@ -78,7 +78,7 @@
             $menu.removeClass(this.showCss)
                 .off('click.context.data-api', items)
                 .trigger('hidden.bs.context', relatedTarget);
-            if (this.isBs4) {
+            if (this.notBs3) {
                 this.$dropdownMenu.removeClass(this.showCss);
             }
             $('html').off('click.context.data-api', $menu.selector);

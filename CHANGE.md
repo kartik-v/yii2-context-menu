@@ -1,6 +1,12 @@
 Change Log: `yii2-context-menu`
 ===============================
 
+## Version 1.2.4
+
+**Date**: 01-Sep-2021
+
+- (enh #3): Enhancements to support Bootstrap v5.x.
+
 ## Version 1.2.3
 
 **Date**: 27-Mar-2020
